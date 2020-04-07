@@ -1,0 +1,24 @@
+version: "3"
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: ./docker/
+    command: server.py
+    working_dir: /app
+    user: $MY_UID:$MY_GID
+    ports:
+      - "5000:5000"
+    volumes:
+      - "./:/app:delegated"
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 'rootpwd'
+      MYSQL_USER: 'testuser'
+      MYSQL_PASSWORD: 'testpassword'
+    volumes:
+      - ./docker/database/data:/var/lib/mysql
+      - ./docker/database/dump:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
