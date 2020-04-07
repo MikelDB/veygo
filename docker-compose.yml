@@ -11,6 +11,8 @@ services:
       - "5000:5000"
     volumes:
       - "./:/app:delegated"
+    depends_on:
+      - "mysql"
   mysql:
     image: mysql:8.0
     environment:

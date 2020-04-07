@@ -18,10 +18,9 @@ CREATE TABLE IF NOT EXISTS `element` (
 
 CREATE TABLE IF NOT EXISTS `discount_code` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(20) unsigned NOT NULL,
-  `cart_id` int(10) unsigned,
-  `percentage` int(4) unsigned NOT NULL,
-  `decimals` int (2) unsigned NOT NULL DEFAULT 2,
+  `code` varchar(20) NOT NULL,
+  `percentage` int(4) unsigned NOT NULL DEFAULT 0,
+  `decimals` int(2) unsigned NOT NULL DEFAULT 2,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

@@ -1,3 +1,6 @@
 flask
 markupsafe
+mysqlclient
+pymysql
+cryptography
 flask-sqlalchemy
