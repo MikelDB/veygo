@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" integrity="sha256-T/f7Sju1ZfNNfBh7skWn0idlCBcI3RwdLSS4/I7NQKQ=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div id="app" class="container">
+        <div class="products">
+            <div class="products-card" v-for="product in products">
+                <span>[[ product.name ]]</span>
+                <div class="products-card__actions">
+                    <button class="button" v-on:click="addNewItem(product.reference)"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="receipt" v-show="isCheckedOut()">
+            <h3>Order Receipt</h3>
+            <h4>Products</h4>
+            <div class="cart-element" v-for="element in checkoutData.elements">
+                <span>[[element.product.name]]</span>
+                <div class="cart-element__actions">
+                    <span>£[[element.product.price/100]]</span>
+                </div>
+            </div>
+            <div v-show="orderHasDiscounts()">
+                <h4>Discounts</h4>
+                <div class="cart-element" v-for="discount in checkoutData.discounts">
+                    <span>[[discount.code]]</span>
+                    <div class="cart-element__actions">
+                        <span>[[discount.percentage/100]]%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-total">
+                <h4>Price</h4>
+                <div>
+                    Total Price £[[checkoutData.finalPrice / 100]]
+                </div>
+            </div>
+        </div>
+        <div class="cart">
+            <h3>Shopping Cart</h3>
+            <div class="cart-element" v-for="element in cart.elements">
+                <span>[[element.product.name]]</span>
+                <div class="cart-element__actions">
+                    <span>£[[element.product.price/100]]</span>
+                    <button class="button button__red button__small" v-on:click="removeItem(element.code)"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="cart-discount">
+                <input v-model="discountCode" placeholder="Add Discount Code">
+                <button class="button button__small" v-on:click="addNewDiscount()"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+            </div>
+            <div class="error-message" v-show="discountCodeError()">
+                Invalid Code
+            </div>
+            <div class="cart-total">
+                <div v-bind:class="totalPriceWithoutDiscountClass">
+                    Total Price £[[totalPriceWithoutDiscount]]
+                </div>
+                <div v-show="hasDiscount()">
+                    Discounted Price £[[totalPrice]]
+                </div>
+            </div>
+            <div class="cart-actions">
+                 <button class="button button__red" v-on:click="createNewCart()"><i class="fa fa-trash"></i>  Clear Cart</button>
+                 <button class="button" v-on:click="checkout()"><i class="fa fa-check" aria-hidden="true"></i>  Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>
