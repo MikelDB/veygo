@@ -7,7 +7,11 @@ should require is adding the following lines to the .bashrc file:
 export MY_UID=$(id -u)
 export MY_GID=$(id -g)
 ```
-This is done so that the docker-compose maps the user outside and inside docker (this probably won't work on Windows). Then you should just need
+This is done so that the docker-compose maps the user outside and inside docker (this probably won't work on Windows). 
+
+If it does not worl you can modify this line in the docker-compose file ``user: $MY_UID:$MY_GID`` with the ID's manually.
+
+Then you should just need
 to do:
 ```
 docker-compose up
