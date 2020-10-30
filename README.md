@@ -1,4 +1,5 @@
-# veygo technical test
+# Veygo Technical Test
+This repository contains the technical test made for the recruiting process for Veygo
 ## Setup
 I've isolated all the application using docker-compose so that it can be used in any system with docker (hopefully), the only configuration it
 should require is adding the following lines to the .bashrc file:
